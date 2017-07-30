@@ -1,0 +1,69 @@
+<html>
+    <head>
+        <title>Which game engine should I use?</title>
+        <link href="https://fonts.googleapis.com/css?family=Lato|Open+Sans+Condensed:300" rel="stylesheet">
+        <style>
+            body {
+                text-align: center;
+                padding: 10rem 2rem;
+                font-size: 1.2rem;
+                color: #333;
+                font-family: 'Lato', sans-serif;
+            }
+            h1 {
+                font-family: 'Open Sans Condensed', sans-serif;
+                font-size: 2.6rem;
+                margin-bottom: 4rem;
+            }
+            p {
+                margin: 2rem;
+            }
+            a {
+                font-weight: bold;
+                color: #333;
+                text-decoration: none;
+            }
+            a:hover {
+                text-decoration: underline;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Which game engine should I use?</h1>
+        <p>
+            Your best choice is <a id="engine-link"></a>.
+        </p>
+        <p>
+            Now go build your damn game.
+        </p>
+    </body>
+</html>
+
+<script>
+    window.onload = function() {
+        var engines = [
+            { id: 1, name: 'Unity', url: 'https://unity3d.com' },
+            { id: 2, name: 'Unreal Engine', url: 'https://www.unrealengine.com' },
+            { id: 3, name: 'Game Maker', url: 'https://www.yoyogames.com' },
+        ];
+
+        var index = Math.round(Math.random() * (engines.length - 1));
+        var bestEngine = engines[index];
+
+        var storedId = localStorage.getItem('engineId');
+        if (storedId) {
+            var storedEngine = engines.find(function(e) {
+                return e.id == storedId;
+            });
+            if (storedEngine) {
+                bestEngine = storedEngine;
+            }
+        } else {
+            localStorage.setItem('engineId', bestEngine.id);
+        }
+        
+        var link = document.getElementById('engine-link');
+        link.innerText = bestEngine.name;
+        link.setAttribute('href', bestEngine.url);
+    }
+</script>
